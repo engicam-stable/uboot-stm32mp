@@ -27,6 +27,51 @@ config SPL
 config SYS_SOC
 	default "stm32mp"
 
+config TARGET_UGEA_STM32MP1
+	bool "Support stm32mp1xx-uGea"
+	select ARCH_SUPPORT_PSCI if !STM32MP1_TRUSTED
+	select CPU_V7A
+	select CPU_V7_HAS_NONSEC if !STM32MP1_TRUSTED
+	select CPU_V7_HAS_VIRT
+	select OF_BOARD_SETUP
+	select PINCTRL_STM32
+	select STM32_RCC
+	select STM32_RESET
+	select STM32_SERIAL
+	imply BOOTCOUNT_LIMIT
+	imply PRE_CONSOLE_BUFFER
+	imply SILENT_CONSOLE
+	imply SYSRESET_PSCI if STM32MP1_TRUSTED
+	imply SYSRESET_SYSCON if !STM32MP1_TRUSTED
+	help
+		target STMicroelectronics SOC STM32MP1 family
+		STM32MP157, STM32MP153 or STM32MP151
+		STMicroelectronics MPU with core ARMv7
+		dual core A7 for STM32MP157/3, monocore for STM32MP151
+
+config TARGET_ICORE_STM32MP1
+        bool "Support stm32mp1xx-iCore"
+        select ARCH_SUPPORT_PSCI if !STM32MP1_TRUSTED
+        select CPU_V7A
+        select CPU_V7_HAS_NONSEC if !STM32MP1_TRUSTED
+        select CPU_V7_HAS_VIRT
+        select OF_BOARD_SETUP
+        select PINCTRL_STM32
+        select STM32_RCC
+        select STM32_RESET
+        select STM32_SERIAL
+        imply BOOTCOUNT_LIMIT
+	imply PRE_CONSOLE_BUFFER
+	imply SILENT_CONSOLE
+        imply SYSRESET_PSCI if STM32MP1_TRUSTED
+        imply SYSRESET_SYSCON if !STM32MP1_TRUSTED
+        help
+		target STMicroelectronics SOC STM32MP1 family
+		STM32MP157, STM32MP153 or STM32MP151
+		STMicroelectronics MPU with core ARMv7
+		dual core A7 for STM32MP157/3, monocore for STM32MP151
+
+	
 config TARGET_STM32MP1
 	bool "Support stm32mp1xx"
 	select ARCH_SUPPORT_PSCI if !STM32MP1_TRUSTED
@@ -96,6 +141,10 @@ config STM32_ETZPC
 	help
 	  Say y to enable STM32 Extended TrustZone Protection
 	  Controller (ETZPC)
+
+source "board/st/stm32mp1/Kconfig"
+source "board/engicam-st/stm32mp1-ugea/Kconfig"
+source "board/engicam-st/stm32mp1-icore/Kconfig"
 
 config CMD_STM32PROG
 	bool "command stm32prog for STM32CudeProgrammer"
