@@ -7,8 +7,10 @@
 /dts-v1/;
 #include "stm32mp15-mx.h"
 #include "stm32mp157c.dtsi"
-#include "stm32mp157c-m4-srm.dtsi"
 #include "stm32mp157cac-pinctrl.dtsi"
+#include "stm32mp157c-m4-srm.dtsi"
+#include <dt-bindings/input/input.h>
+#include <dt-bindings/mfd/st,stpmic1.h>
 
 /* USER CODE BEGIN includes */
 /* USER CODE END includes */
@@ -496,6 +498,7 @@
     /* USER CODE BEGIN m4_rproc */
     /* USER CODE END m4_rproc */
 };
+
 
 &bsec{
     status = "okay";
