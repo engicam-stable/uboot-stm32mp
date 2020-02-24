@@ -1,0 +1,227 @@
+/* SPDX-License-Identifier: GPL-2.0+ OR BSD-3-Clause*/
+/*
+ * Copyright (C) 2019, STMicroelectronics - All Rights Reserved
+ * Author: STM32CubeMX code generation for STMicroelectronics.
+ */
+
+#include <dt-bindings/clock/stm32mp1-clksrc.h>
+#include "stm32mp15-512M-mx.h"
+
+#include "stm32mp157-u-boot.dtsi"
+#include "stm32mp15-ddr.dtsi"
+
+/* USER CODE BEGIN includes */
+/* USER CODE END includes */
+
+/ {
+
+	/* USER CODE BEGIN root */
+	/* USER CODE END root */
+
+clocks {
+    /* USER CODE BEGIN clocks */
+    /* USER CODE END clocks */
+
+    clk_hsi: clk-hsi {
+        /* USER CODE BEGIN clocks */
+        /* USER CODE END clocks */
+        u-boot,dm-pre-reloc;
+    };
+    clk_csi: clk-csi {
+        /* USER CODE BEGIN clocks */
+        /* USER CODE END clocks */
+        u-boot,dm-pre-reloc;
+    };
+    clk_lse: clk-lse {
+        /* USER CODE BEGIN clocks */
+        /* USER CODE END clocks */
+        st,drive=<LSEDRV_MEDIUM_HIGH>;
+        u-boot,dm-pre-reloc;
+    };
+    clk_hse: clk-hse {
+        /* USER CODE BEGIN clocks */
+        /* USER CODE END clocks */
+        u-boot,dm-pre-reloc;
+    };
+};
+
+}; /*root*/
+
+&gpioa {
+    compatible = "st,stm32-gpio";
+    u-boot,dm-pre-reloc;
+};
+&gpiob {
+    compatible = "st,stm32-gpio";
+    u-boot,dm-pre-reloc;
+};
+&gpioc {
+    compatible = "st,stm32-gpio";
+    u-boot,dm-pre-reloc;
+};
+&gpiod {
+    compatible = "st,stm32-gpio";
+    u-boot,dm-pre-reloc;
+};
+&gpioe {
+    compatible = "st,stm32-gpio";
+    u-boot,dm-pre-reloc;
+};
+&gpiof {
+    compatible = "st,stm32-gpio";
+    u-boot,dm-pre-reloc;
+};
+&gpiog {
+    compatible = "st,stm32-gpio";
+    u-boot,dm-pre-reloc;
+};
+&gpioh {
+    compatible = "st,stm32-gpio";
+    u-boot,dm-pre-reloc;
+};
+&gpioi {
+    compatible = "st,stm32-gpio";
+    u-boot,dm-pre-reloc;
+};
+&gpioj {
+    compatible = "st,stm32-gpio";
+    u-boot,dm-pre-reloc;
+};
+&gpiok {
+    compatible = "st,stm32-gpio";
+    u-boot,dm-pre-reloc;
+};
+&gpioz {
+    compatible = "st,stm32-gpio";
+    u-boot,dm-pre-reloc;
+};
+
+&rcc {
+    u-boot,dm-pre-reloc;
+    st,clksrc = <
+        CLK_MPU_PLL1P
+        CLK_AXI_PLL2P
+        CLK_MCU_HSI
+        CLK_PLL12_HSI
+        CLK_PLL3_HSI
+        CLK_PLL4_HSE
+        CLK_RTC_LSE
+        CLK_MCO1_DISABLED
+        CLK_MCO2_DISABLED
+    >;
+    st,clkdiv = <
+        1         /*MPU*/
+        1         /*AXI*/
+        0         /*MCU*/
+        0         /*APB1*/
+        0         /*APB2*/
+        0         /*APB3*/
+        1         /*APB4*/
+        1         /*APB5*/
+        0         /*RTC*/
+        0         /*MCO1*/
+        0         /*MCO2*/
+    >;
+    st,pkcs = <
+        CLK_CKPER_DISABLED
+        CLK_FMC_ACLK
+        CLK_ETH_PLL4P
+        CLK_SDMMC12_HSI
+        CLK_STGEN_HSI
+        CLK_USBPHY_HSE
+        CLK_SPI2S1_DISABLED
+        CLK_SPI2S23_DISABLED
+        CLK_SPI45_DISABLED
+        CLK_SPI6_DISABLED
+        CLK_I2C46_CSI
+        CLK_SDMMC3_DISABLED
+        CLK_USBO_PLL4R
+        CLK_ADC_DISABLED
+        CLK_CEC_DISABLED
+        CLK_I2C12_PCLK1
+        CLK_I2C35_DISABLED
+        CLK_UART1_PCLK5
+        CLK_UART24_HSE
+        CLK_UART35_PCLK1
+        CLK_UART6_PCLK2
+        CLK_UART78_DISABLED
+        CLK_SPDIF_PLL4P
+        CLK_FDCAN_HSE
+        CLK_SAI1_DISABLED
+        CLK_SAI2_SPDIF
+        CLK_SAI3_DISABLED
+        CLK_SAI4_DISABLED
+        CLK_LPTIM1_DISABLED
+        CLK_LPTIM23_DISABLED
+        CLK_LPTIM45_DISABLED
+    >;
+
+    pll1:st,pll@0 { /* MPU = 800MHz */
+        cfg = < 1 65 0 1 1 1>;
+    };
+    
+    pll2:st,pll@1 {
+        cfg = < 1 43 1 0 0 7>;
+    };
+    
+    pll3:st,pll@2 {
+        cfg = < 1 49 2 11 1 3>;
+    };    
+    pll4:st,pll@3 {
+        cfg = < 1 49 11 10 1 7>;
+        u-boot,dm-pre-reloc;
+    };
+};
+
+&fmc{
+    u-boot,dm-pre-reloc;
+
+    /* USER CODE BEGIN fmc */
+    /* USER CODE END fmc */
+};
+
+&rcc{
+    u-boot,dm-pre-reloc;
+
+    /* USER CODE BEGIN rcc */
+    /* USER CODE END rcc */
+};
+
+&sdmmc1{
+    u-boot,dm-pre-reloc;
+
+    /* USER CODE BEGIN sdmmc1 */
+    /* USER CODE END sdmmc1 */
+};
+
+&uart4{
+    u-boot,dm-pre-reloc;
+
+    /* USER CODE BEGIN uart4 */
+    /* USER CODE END uart4 */
+};
+
+&usart1{
+    u-boot,dm-pre-reloc;
+
+    /* USER CODE BEGIN usart1 */
+    /* USER CODE END usart1 */
+};
+
+&usart3{
+    u-boot,dm-pre-reloc;
+
+    /* USER CODE BEGIN usart3 */
+    /* USER CODE END usart3 */
+};
+
+&usart6{
+    u-boot,dm-pre-reloc;
+
+    /* USER CODE BEGIN usart6 */
+    /* USER CODE END usart6 */
+};
+
+/* USER CODE BEGIN addons */
+/* USER CODE END addons */
+
