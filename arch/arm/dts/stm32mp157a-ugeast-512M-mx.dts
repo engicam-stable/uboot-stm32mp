@@ -7,8 +7,10 @@
 /dts-v1/;
 #include "stm32mp15-512M-mx.h"
 #include "stm32mp157c.dtsi"
-#include "stm32mp157c-m4-srm.dtsi"
 #include "stm32mp157cac-pinctrl.dtsi"
+#include "stm32mp157c-m4-srm.dtsi"
+#include <dt-bindings/input/input.h>
+#include <dt-bindings/mfd/st,stpmic1.h>
 
 /* USER CODE BEGIN includes */
 /* USER CODE END includes */
@@ -102,6 +104,14 @@
 					drive-push-pull;
 					slew-rate = <3>;
 				};
+        
+                
+        pins2 {
+          pinmux = <STM32_PINMUX('A', 1, AF0)>; /* ETH_CLK */
+          bias-disable;
+          slew-rate = <1>;
+        };
+         
     };
 
     eth_res: eth_res-0 {
