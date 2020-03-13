@@ -404,6 +404,33 @@ int g_dnl_bind_fixup(struct usb_device_descriptor *dev, const char *name)
 }
 #endif /* CONFIG_USB_GADGET */
 
+int reset_eth_phy(void)
+{
+    ofnode node;
+    struct gpio_desc gpio;
+
+    node = ofnode_path("/config");
+    if (!ofnode_valid(node)) {
+            return -1;
+    }
+
+    if (gpio_request_by_name_nodev(node, "st,reset-phy-gpios", 0,
+				       &gpio, GPIOD_IS_OUT)) {
+        return -2;
+	}
+	
+    if (dm_gpio_set_value(&gpio,1)) {
+        return -3;
+    }
+
+   	udelay(20000);
+
+    if (dm_gpio_set_value(&gpio,0)) {
+        return -4;
+    }
+
+    return 0;
+}
 /* board interface eth init */
 /* this is a weak define that we are overriding */
 int board_interface_eth_init(int interface_type, bool eth_clk_sel_reg,
@@ -416,7 +443,7 @@ int board_interface_eth_init(int interface_type, bool eth_clk_sel_reg,
 
 	if (!syscfg)
 		return -ENODEV;
-
+  reset_eth_phy();
 	switch (interface_type) {
 	case PHY_INTERFACE_MODE_MII:
 		value = SYSCFG_PMCSETR_ETH_SEL_GMII_MII |

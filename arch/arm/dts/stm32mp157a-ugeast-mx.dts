@@ -19,6 +19,10 @@
 	model = "STMicroelectronics custom STM32CubeMX board";
 	compatible = "st,stm32mp157a-ugeast-mx", "st,stm32mp157";
 
+     config {
+             st,reset-phy-gpios = <&gpioa 13 GPIO_ACTIVE_LOW>;
+     };
+
     memory@c0000000 {
         reg = <0xc0000000 0x10000000>;
 
@@ -104,12 +108,11 @@
 					slew-rate = <3>;
 				};
         
-                
         pins2 {
           pinmux = <STM32_PINMUX('A', 1, AF0)>; /* ETH_CLK */
           bias-disable;
           slew-rate = <1>;
-        };
+        };                
          
     };
 
@@ -780,15 +783,13 @@
             <&rcc ETHRX>,
             <&rcc ETHSTP>,
             <&rcc SYSCFG>,
-            <&rcc ETHCK>;
+            <&rcc ETHCK_K>;
 	
     mdio0 {
 		#address-cells = <1>;
 		#size-cells = <0>;
 		compatible = "snps,dwmac-mdio";
-		snps,reset-gpio = <&gpioa 13 0>;
-		snps,reset-delays-us = <25>;
-		snps,reset-active-low;
+
 
 		phy0: ethernet-phy-0 {
 			reg = <0>;
