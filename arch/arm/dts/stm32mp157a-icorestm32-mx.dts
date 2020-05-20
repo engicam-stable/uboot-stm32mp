@@ -213,7 +213,7 @@
                     <STM32_PINMUX('A', 8, AF9)>, /* SDMMC2_D4 */
                     <STM32_PINMUX('A', 9, AF10)>, /* SDMMC2_D5 */
                     <STM32_PINMUX('E', 5, AF9)>, /* SDMMC2_D6 */
-                    <STM32_PINMUX('D', 3, AF9)>; /* SDMMC2_D7 */
+                    <STM32_PINMUX('C', 7, AF10)>; /* SDMMC2_D7 */
             slew-rate = <3>;
             drive-push-pull;
             bias-pull-up;
@@ -333,7 +333,7 @@
                      <STM32_PINMUX('B', 4, ANALOG)>, /* SDMMC2_D3 */
                      <STM32_PINMUX('B', 14, ANALOG)>, /* SDMMC2_D0 */
                      <STM32_PINMUX('B', 15, ANALOG)>, /* SDMMC2_D1 */
-                     <STM32_PINMUX('D', 3, ANALOG)>, /* SDMMC2_D7 */
+                     <STM32_PINMUX('C', 7, ANALOG)>, /* SDMMC2_D7 */
                      <STM32_PINMUX('E', 3, ANALOG)>, /* SDMMC2_CK */
                      <STM32_PINMUX('E', 5, ANALOG)>, /* SDMMC2_D6 */
                      <STM32_PINMUX('G', 6, ANALOG)>; /* SDMMC2_CMD */
