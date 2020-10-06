@@ -22,7 +22,11 @@
 / {
 	model = "STMicroelectronics custom STM32CubeMX board";
 	compatible = "st,stm32mp157a-ugeast-mx", "st,stm32mp157";
-
+	
+	config {
+	 	st,reset-phy-gpios = <&gpioa 13 GPIO_ACTIVE_LOW>;
+	};
+	
 	memory@c0000000 {
 		device_type = "memory";
 		reg = <0xc0000000 0x20000000>;
@@ -88,44 +92,26 @@
 	u-boot,dm-pre-reloc;
 
 	eth1_pins_mx: eth1_mx-0 {
-		pins1 {
-			pinmux = <STM32_PINMUX('A', 1, AF0)>, /* ETH1_CLK */
-					 <STM32_PINMUX('C', 1, AF11)>, /* ETH1_MDC */
-					 <STM32_PINMUX('G', 13, AF11)>, /* ETH1_TXD0 */
-					 <STM32_PINMUX('G', 14, AF11)>; /* ETH1_TXD1 */
-			bias-disable;
-			drive-push-pull;
-			slew-rate = <1>;
-		};
-		pins2 {
-			pinmux = <STM32_PINMUX('A', 2, AF11)>; /* ETH1_MDIO */
-			bias-disable;
-			drive-push-pull;
-			slew-rate = <0>;
-		};
-		pins3 {
-			pinmux = <STM32_PINMUX('A', 7, AF11)>, /* ETH1_CRS_DV */
-					 <STM32_PINMUX('C', 4, AF11)>, /* ETH1_RXD0 */
-					 <STM32_PINMUX('C', 5, AF11)>; /* ETH1_RXD1 */
-			bias-disable;
-		};
-		pins4 {
-			pinmux = <STM32_PINMUX('B', 11, AF11)>; /* ETH1_TX_EN */
-		};
-	};
+			pins {
+				pinmux = <STM32_PINMUX('A', 2, AF11)>, /* ETH_MDIO */
+					 <STM32_PINMUX('C', 1, AF11)>, /* ETH_MDC */
+					 <STM32_PINMUX('A', 7, AF11)>, /* ETH_RX_DV */
+					 <STM32_PINMUX('B', 11, AF11)>, /* ETH_TX_EN */
+					 <STM32_PINMUX('C', 4, AF11)>, /* ETH_RX_D0 */
+					 <STM32_PINMUX('C', 5, AF11)>, /* ETH_RX_D1 */
+					 <STM32_PINMUX('G', 13, AF11)>, /* ETH_TX_D0 */
+					 <STM32_PINMUX('G', 14, AF11)>; /* ETH_TX_D1 */
+				bias-disable;
+				drive-push-pull;
+				slew-rate = <3>;
+			};
 
-	eth1_sleep_pins_mx: eth1_sleep_mx-0 {
-		pins {
-			pinmux = <STM32_PINMUX('A', 1, ANALOG)>, /* ETH1_CLK */
-					 <STM32_PINMUX('A', 2, ANALOG)>, /* ETH1_MDIO */
-					 <STM32_PINMUX('A', 7, ANALOG)>, /* ETH1_CRS_DV */
-					 <STM32_PINMUX('B', 11, ANALOG)>, /* ETH1_TX_EN */
-					 <STM32_PINMUX('C', 1, ANALOG)>, /* ETH1_MDC */
-					 <STM32_PINMUX('C', 4, ANALOG)>, /* ETH1_RXD0 */
-					 <STM32_PINMUX('C', 5, ANALOG)>, /* ETH1_RXD1 */
-					 <STM32_PINMUX('G', 13, ANALOG)>, /* ETH1_TXD0 */
-					 <STM32_PINMUX('G', 14, ANALOG)>; /* ETH1_TXD1 */
-		};
+			pins2 {
+				pinmux = <STM32_PINMUX('A', 1, AF0)>; /* ETH_CLK */
+				bias-disable;
+				slew-rate = <1>;
+			};                
+
 	};
 
 	fdcan1_pins_mx: fdcan1_mx-0 {
@@ -616,14 +602,40 @@
 	/* USER CODE END dmamux1 */
 };
 
-&ethernet0{
-	pinctrl-names = "default", "sleep";
-	pinctrl-0 = <&eth1_pins_mx>;
-	pinctrl-1 = <&eth1_sleep_pins_mx>;
+&ethernet0 {
+    pinctrl-names = "default";
+    pinctrl-0 = <&eth1_pins_mx>;
+	phy-mode = "rmii";
+	max-speed = <100>;
+	phy-handle = <&phy0>;
+	snps,ps-speed = <100>;
+    st,eth_ref_clk_sel;
 	status = "okay";
 
-	/* USER CODE BEGIN ethernet0 */
-	/* USER CODE END ethernet0 */
+    clock-names = "stmmaceth",
+                "mac-clk-tx",
+                "mac-clk-rx",
+                "ethstp",
+                "syscfg-clk",
+                "eth-ck";
+
+    clocks = <&rcc ETHMAC>,
+            <&rcc ETHTX>,
+            <&rcc ETHRX>,
+            <&rcc ETHSTP>,
+            <&rcc SYSCFG>,
+            <&rcc ETHCK_K>;
+	
+    mdio0 {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		compatible = "snps,dwmac-mdio";
+
+
+		phy0: ethernet-phy-0 {
+			reg = <0>;
+		};
+	};
 };
 
 &fmc{
