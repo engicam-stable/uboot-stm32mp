@@ -1,0 +1,11 @@
+STM32MP1 BOARD
+M:	Francesco Utel <francesco.utel@engicam.com>
+M:	Mirko Ardinghi <mirko.ardinghi@engicam.com>
+L:	uboot-stm32@st-md-mailman.stormreply.com (moderated for non-subscribers)
+T:	git https://gitlab.denx.de/u-boot/custodians/u-boot-stm.git
+S:	Maintained
+F:	arch/arm/dts/stm32mp15*
+F:	board/engicam/stm32mp1-ugea/
+F:	configs/stm32mp15_basic_defconfig
+F:	configs/stm32mp15_trusted_defconfig
+F:	include/configs/stm32mp1.h

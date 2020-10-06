@@ -33,6 +33,7 @@ config SYS_MALLOC_LEN
 config ENV_SIZE
 	default 0x2000
 
+
 config STM32MP15x
 	bool "Support STMicroelectronics STM32MP15x Soc"
 	select ARCH_SUPPORT_PSCI if !STM32MP1_TRUSTED
@@ -58,6 +59,7 @@ config STM32MP15x
 choice
 	prompt "STM32MP15x board select"
 	optional
+
 
 config TARGET_ST_STM32MP15x
 	bool "STMicroelectronics STM32MP15x boards"
@@ -85,6 +87,21 @@ config TARGET_DH_STM32MP1_PDK2
 	help
 		Target the DH PDK2 development kit with STM32MP15x SoM.
 
+config TARGET_UGEA_STM32MP1
+	bool "Support stm32mp1-ugea"
+	select STM32MP15x
+	imply BOOTCOUNT_LIMIT
+	imply BOOTSTAGE
+	imply CMD_BOOTCOUNT
+	imply CMD_BOOTSTAGE
+	imply CMD_CLS if CMD_BMP
+	imply DISABLE_CONSOLE
+	imply PRE_CONSOLE_BUFFER
+	imply SILENT_CONSOLE
+	imply VERSION_VARIABLE  
+	help
+		Target the stm32mp1-ugea module.
+    
 endchoice
 
 config STM32MP1_TRUSTED
@@ -178,5 +195,5 @@ endif
 
 source "board/st/stm32mp1/Kconfig"
 source "board/dhelectronics/dh_stm32mp1/Kconfig"
-
+source "board/engicam/stm32mp1-ugea/Kconfig"
 endif

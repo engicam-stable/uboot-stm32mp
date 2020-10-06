@@ -1,0 +1,13 @@
+if TARGET_UGEA_STM32MP1
+
+config SYS_BOARD
+	default "stm32mp1-ugea"
+
+config SYS_VENDOR
+	default "engicam"
+
+config SYS_CONFIG_NAME
+	default "stm32mp1-ugea"
+
+source "board/engicam/common/Kconfig"
+endif
