@@ -101,7 +101,7 @@ config TARGET_UGEA_STM32MP1
 	imply VERSION_VARIABLE  
 	help
 		Target the stm32mp1-ugea module.
-
+ 
 config TARGET_ICORE_STM32MP1
 	bool "Support stm32mp1-icore"
 	select STM32MP15x
@@ -116,7 +116,7 @@ config TARGET_ICORE_STM32MP1
 	imply VERSION_VARIABLE  
 	help
 		Target the stm32mp1-icore module.
-    
+		
 endchoice
 
 config STM32MP1_TRUSTED

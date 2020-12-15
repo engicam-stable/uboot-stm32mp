@@ -81,8 +81,7 @@
 /* Ethernet need */
 #ifdef CONFIG_DWC_ETH_QOS
 #define CONFIG_SYS_NONCACHED_MEMORY	(1 * SZ_1M)	/* 1M */
-#define CONFIG_SERVERIP			192.168.2.31
-#define CONFIG_IPADDR    192.168.2.198
+#define CONFIG_SERVERIP                 192.168.1.1
 #define CONFIG_BOOTP_SERVERIP
 #define CONFIG_SYS_AUTOLOAD		"no"
 #endif

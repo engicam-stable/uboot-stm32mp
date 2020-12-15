@@ -147,7 +147,7 @@ int checkboard(void)
 			       otp & 0xF);
 
 			/* LOCK OTP for board ID and MAC address on ST board */
-			if (CONFIG_IS_ENABLED(TARGET_UGEA_STM32MP1) &&
+			if ((CONFIG_IS_ENABLED(TARGET_UGEA_STM32MP1) || CONFIG_IS_ENABLED(TARGET_ICORE_STM32MP1)) &&
 			    ((otp >> 16) == 0x1272 || (otp >> 16) == 0x1263))
 				stboard_lock(dev);
 		}
@@ -801,7 +801,7 @@ void board_quiesce_devices(void)
 #endif
 }
 
-int reset_eth_phy(void)
+/*int reset_eth_phy(void)
 {
 	ofnode node;
 	struct gpio_desc gpio;
@@ -831,7 +831,7 @@ int reset_eth_phy(void)
 	}
 
 	return 0;
-}
+}*/
 
 /* eth init function : weak called in eqos driver */
 int board_interface_eth_init(struct udevice *dev,
@@ -854,7 +854,7 @@ int board_interface_eth_init(struct udevice *dev,
 	if (!syscfg)
 		return -ENODEV;
 	
-	reset_eth_phy();
+//	reset_eth_phy();
 	
 	switch (interface_type) {
 	case PHY_INTERFACE_MODE_MII:
