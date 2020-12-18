@@ -25,8 +25,12 @@
  */
 
 / {
-	model = "Engicam i.Core STM32MP153 DucatiEnergia STK";
-	compatible = "st,stm32mp157a-icore-mx", "st,stm32mp153";
+		model = "STMicroelectronics custom STM32CubeMX board";
+		compatible = "st,stm32mp157a-icorest-mx", "st,stm32mp157";
+
+	config {
+	    st,reset-phy-gpios = <&gpiod 10 GPIO_ACTIVE_LOW>;
+	};
 
 	aliases {
 		ethernet0 = &ethernet0;
@@ -68,36 +72,36 @@
 			reg = <0x10000000 0x40000>;
 			no-map;
 		};
-		
+
 		vdev0vring0: vdev0vring0@10040000 {
 			compatible = "shared-dma-pool";
 			reg = <0x10040000 0x1000>;
 			no-map;
 		};
-		
+
 		vdev0vring1: vdev0vring1@10041000 {
 			compatible = "shared-dma-pool";
 			reg = <0x10041000 0x1000>;
 			no-map;
 		};
-		
+
 		vdev0buffer: vdev0buffer@10042000 {
 			compatible = "shared-dma-pool";
 			reg = <0x10042000 0x4000>;
-			no-map;		
+			no-map;
 		};
-		
+
 		mcuram: mcuram@30000000 {
 			compatible = "shared-dma-pool";
 			reg = <0x30000000 0x40000>;
 			no-map;
 		};
-		
+
 		retram: retram@38000000 {
 			compatible = "shared-dma-pool";
 			reg = <0x38000000 0x10000>;
 			no-map;
-		};		
+		};
 	};
 
 
@@ -201,7 +205,7 @@
 		regulator-max-microvolt = <5000000>;
 		regulator-always-on;
 	};*/
-	
+
 	lcd_3v3: regulator-lcd_3v3 {
 		compatible = "regulator-fixed";
 		regulator-name = "lcd_3v3";
@@ -232,7 +236,7 @@
 		};
 	#endif	/*CONFIG_STM32MP1_TRUSTED*/
 	};
-	
+
 	panel_rgb: panel-rgb {
 		compatible = "ampire,am800480r3tmqwa1h";
 		status = "okay";
@@ -242,7 +246,7 @@
 			};
 		};
 	};
-	
+
 	panel_backlight: panel-backlight {
 		compatible = "gpio-backlight";
 		gpios = <&gpiod 13 GPIO_ACTIVE_HIGH>;
@@ -277,16 +281,6 @@
 		};
 	};
 
-	eth_res: eth_res-0 {
-		pins {
-			pinmux = <STM32_PINMUX('A', 13, GPIO)>;
-			bias-disable;
-			drive-push-pull;
-			output-high;
-			slew-rate = <0>;
-		};
-	};
-	
 	fdcan1_pins_mx: fdcan1_mx-0 {
 		pins1 {
 			pinmux = <STM32_PINMUX('H', 13, AF9)>; /* FDCAN1_TX */
@@ -299,7 +293,7 @@
 			bias-disable;
 		};
 	};
-		
+
 	i2c2_pins_mx: i2c2_mx-0 {
 		pins {
 			pinmux = <STM32_PINMUX('H', 4, AF4)>, /* I2C2_SCL */
@@ -327,7 +321,7 @@
 			slew-rate = <0>;
 		};
 	};
-	
+
 	sai2b_pins_mx: sai2b_mx-0 {
 		pins {
 			pinmux = <STM32_PINMUX('C', 0, AF8)>, /* SAI2_FS_B */
@@ -362,7 +356,7 @@
 			slew-rate = <3>;
 		};
 	};
-	
+
 	sdmmc2_pins_mx: sdmmc2_mx-0 {
 		u-boot,dm-pre-reloc;
 		pins1 {
@@ -370,7 +364,7 @@
 			pinmux = <STM32_PINMUX('B', 14, AF9)>, /* SDMMC2_D0 */
 					<STM32_PINMUX('B', 15, AF9)>, /* SDMMC2_D1 */
 					<STM32_PINMUX('B', 3, AF9)>, /* SDMMC2_D2 */
-					<STM32_PINMUX('B', 4, AF9)>, /* SDMMC2_D3 */						 
+					<STM32_PINMUX('B', 4, AF9)>, /* SDMMC2_D3 */
 					<STM32_PINMUX('G', 6, AF10)>, /* SDMMC2_CMD */
 					<STM32_PINMUX('A', 8, AF9)>, /* SDMMC2_D4 */
 					<STM32_PINMUX('A', 9, AF10)>, /* SDMMC2_D5 */
@@ -388,7 +382,7 @@
 			slew-rate = <3>;
 		};
 	};
-		
+
 	uart4_pins_mx: uart4_mx-0 {
 		u-boot,dm-pre-reloc;
 		pins1 {
@@ -503,35 +497,36 @@
 
 &ethernet0 {
 	pinctrl-names = "default";
-	pinctrl-0 = <&eth1_pins_mx  &eth_res>;
+	pinctrl-0 = <&eth1_pins_mx>;
 	phy-mode = "rmii";
 	max-speed = <100>;
 	phy-handle = <&phy0>;
 	snps,ps-speed = <100>;
-	st,eth-ref-clk-sel = <1>;
+	st,eth_ref_clk_sel;
 	status = "okay";
 
 	clock-names = "stmmaceth",
-							"mac-clk-tx",
-							"mac-clk-rx",
-							"ethstp",
-							"syscfg-clk",
-							"eth-ck";
+			"mac-clk-tx",
+			"mac-clk-rx",
+			"ethstp",
+			"syscfg-clk",
+			"eth-ck";
 
 	clocks = <&rcc ETHMAC>,
-					<&rcc ETHTX>,
-					<&rcc ETHRX>,
-					<&rcc ETHSTP>,
-					<&rcc SYSCFG>,
-					<&rcc ETHCK_K>;
+		<&rcc ETHTX>,
+		<&rcc ETHRX>,
+		<&rcc ETHSTP>,
+		<&rcc SYSCFG>,
+		<&rcc ETHCK_K>;
+
+//	snps,reset-gpio = <&gpiod 10 0>;
+//	snps,reset-delays-us = <25>;
+//	snps,reset-active-low;
 
 	mdio0 {
 		#address-cells = <1>;
 		#size-cells = <0>;
 		compatible = "snps,dwmac-mdio";
-		snps,reset-gpio = <&gpioa 13 0>;
-		snps,reset-delays-us = <25>;
-		snps,reset-active-low;
 
 		phy0: ethernet-phy-0 {
 			reg = <0>;
@@ -563,10 +558,10 @@
 	polytouch: st1232_ts@55 {
 		compatible = "sitronix,st1232-ts";
 		reg = <0x55>;
-		pinctrl-names = "default";		
+		pinctrl-names = "default";
 		pinctrl-0 = <&pinctrl_st1232_ts>;
 		interrupt-parent = <&gpioi>;
-		interrupts = <4 2>;	
+		interrupts = <4 2>;
 	};
 
 	codec: sgtl5000@a {
@@ -580,7 +575,7 @@
 
 		VDDA-supply = <&v3v3>;
 		VDDIO-supply = <&v3v3>;
-		
+
 		ports {
 			#address-cells = <1>;
 			#size-cells = <0>;
@@ -648,7 +643,7 @@
 	port {
 		#address-cells = <1>;
 		#size-cells = <0>;
-		
+
 		ltdc_out_rgb: endpoint@0 {
 			reg = <0>;
 			remote-endpoint = <&panel_in_rgb>;
@@ -670,7 +665,7 @@
 		clocks = <&rcc SAI2_K>, <&sai2a>;
 		clock-names = "sai_ck", "MCLK";
 		status = "okay";
-		
+
 		sai2a_port: port@0 {
 			sai2a_endpoint: endpoint {
 				remote-endpoint = <&sgtl5000_tx_endpoint>;
@@ -708,7 +703,7 @@
 	broken-cd;
 	st,neg-edge;
 	bus-width = <4>;
-	vmmc-supply = <&v3v3>;    
+	vmmc-supply = <&v3v3>;
 };
 
 

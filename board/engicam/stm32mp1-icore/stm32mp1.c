@@ -801,7 +801,7 @@ void board_quiesce_devices(void)
 #endif
 }
 
-/*int reset_eth_phy(void)
+int reset_eth_phy(void)
 {
 	ofnode node;
 	struct gpio_desc gpio;
@@ -831,7 +831,7 @@ void board_quiesce_devices(void)
 	}
 
 	return 0;
-}*/
+}
 
 /* eth init function : weak called in eqos driver */
 int board_interface_eth_init(struct udevice *dev,
@@ -854,7 +854,7 @@ int board_interface_eth_init(struct udevice *dev,
 	if (!syscfg)
 		return -ENODEV;
 	
-//	reset_eth_phy();
+	reset_eth_phy();
 	
 	switch (interface_type) {
 	case PHY_INTERFACE_MODE_MII:

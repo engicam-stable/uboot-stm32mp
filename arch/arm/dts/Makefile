@@ -847,7 +847,7 @@ dtb-$(CONFIG_STM32MP15x) += \
 	stm32mp157a-ugeast-mx.dtb \
 	stm32mp157a-ugeast-512-mx.dtb \
 	stm32mp157a-icore-mx.dtb \
-	stm32mp153a-icore-ducati-mx.dtb 
+
 dtb-$(CONFIG_SOC_K3_AM6) += k3-am654-base-board.dtb k3-am654-r5-base-board.dtb
 dtb-$(CONFIG_SOC_K3_J721E) += k3-j721e-common-proc-board.dtb \
 			      k3-j721e-r5-common-proc-board.dtb
