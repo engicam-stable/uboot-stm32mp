@@ -9,7 +9,7 @@
  */
 
 #include <dt-bindings/clock/stm32mp1-clksrc.h>
-#include "stm32mp15-mx.dtsi"
+#include "stm32mp15-icore-mx.dtsi"
 
 #include "stm32mp15-u-boot.dtsi"
 #include "stm32mp15-ddr.dtsi"
@@ -37,7 +37,7 @@
 		};
 
 
-}; 
+};
 
 /* FROM TFA (NOT THE SAME) */
 &bsec{
@@ -177,4 +177,3 @@
 
 /* USER CODE BEGIN addons */
 /* USER CODE END addons */
-
