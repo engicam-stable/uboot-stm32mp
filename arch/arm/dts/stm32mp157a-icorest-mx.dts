@@ -369,7 +369,7 @@
 					<STM32_PINMUX('A', 8, AF9)>, /* SDMMC2_D4 */
 					<STM32_PINMUX('A', 9, AF10)>, /* SDMMC2_D5 */
 					<STM32_PINMUX('E', 5, AF9)>, /* SDMMC2_D6 */
-					<STM32_PINMUX('D', 3, AF9)>; /* SDMMC2_D7 */
+					<STM32_PINMUX('C', 7, AF10)>; /* SDMMC2_D7 */
 			slew-rate = <3>;
 			drive-push-pull;
 			bias-pull-up;
@@ -519,9 +519,9 @@
 		<&rcc SYSCFG>,
 		<&rcc ETHCK_K>;
 
-//	snps,reset-gpio = <&gpiod 10 0>;
-//	snps,reset-delays-us = <25>;
-//	snps,reset-active-low;
+	snps,reset-gpio = <&gpiod 10 GPIO_ACTIVE_LOW>;
+	snps,reset-delays-us = <25>;
+	snps,reset-active-low;
 
 	mdio0 {
 		#address-cells = <1>;
